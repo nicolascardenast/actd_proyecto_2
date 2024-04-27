@@ -1,2 +1,2 @@
-# actd_proyecto_2
+# **ACTD: Segundo Proyecto**
 Este es el repositorio para el segundo proyecto de ACTD.
