@@ -34,6 +34,7 @@ x_train_full, x_test, y_train_full, y_test = train_test_split(x, y, test_size=0.
 x_train, x_valid, y_train, y_valid = train_test_split(x_train_full, y_train_full, test_size=0.2, random_state=42)
 datos_modelo = x_train, x_valid, y_train, y_valid
 
+'''
 ## Buscar el mejor modelo ------------------------------------------------------
 # Hiperparámetros
 num_neuronas_lista = [50, 100, 200]
@@ -126,12 +127,14 @@ ax[1].set_ylabel('Valor')
 # Mostrar la gráfica
 plt.tight_layout()
 plt.show()
+'''
 
 
 ##################################
 # Sección 4: Predicciones
 ##################################
 # En esta sección se realizan las predicciones
+loss, acc, _, mejor_modelo = cambiar_hiper(200, 200, 'tanh', 'sigmoid', 'rmsprop', datos_modelo)
 # Use the trained model to predict probabilities of default
 probabilities = mejor_modelo.predict(x)
 default_probability = probabilities.mean()
