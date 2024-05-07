@@ -75,3 +75,48 @@ def calc_proba(id: int, datos:DataFrame, modelo) -> float:
     x_client = client_data.drop(['default_payment_next_month'], axis=1)
     default_probability_client = modelo.predict(x_client)
     return default_probability_client
+
+
+def crear_mod_descr(num_neur_1: int, num_neur_2: int, fun_act_1: str , fun_act_2: str, opti: str, datos: tuple) -> tuple:
+    """
+    Función para modificar los hiperparámetros del modelo descriptivo y medir su rendimiento.
+    
+    Args:
+    - num_neur_i: Número de neuronas para la capa oculta i.
+    - fun_act_i: Función de activación para la capa oculta i.
+    - opti: Optimizador para compilar el modelo.
+    - datos: Los datos para la red neuronal
+    
+    Returns:
+    - Tuple: Una tupla que contiene la pérdida, precisión y el modelo
+    """
+
+    # Desempaquetar datos
+    X_train, X_valid, y_train, y_valid = datos
+    
+    tf.keras.backend.clear_session()
+    tf.random.set_seed(42)
+    model = tf.keras.Sequential()
+    model.add(tf.keras.layers.InputLayer(input_shape=[X_train.shape[1]]))  # Capa input
+    model.add(tf.keras.layers.Dense(num_neur_1, activation=fun_act_1))     # Capa oculta
+    model.add(tf.keras.layers.Dense(num_neur_2, activation=fun_act_2))     # Capa oculta
+    model.add(tf.keras.layers.Dense(1, activation="sigmoid"))              # Capa output
+
+    # Información
+    hidden1 = model.layers[1]
+    weights, _ = hidden1.get_weights()
+
+    # Tercera modificación.
+    model.compile(loss="binary_crossentropy",
+                  optimizer=opti,
+                  metrics=["accuracy"])
+    
+    # Entrenar el modelo
+    history = model.fit(X_train, y_train, epochs=10,
+                        validation_data=(X_valid, y_valid),
+                        verbose=0)
+    
+    # Métricas para evaluar el modelo utilizando los datos de validación.
+    loss, accuracy = model.evaluate(X_valid, y_valid)
+
+    return (round(loss, 4), round(accuracy, 4), model)
