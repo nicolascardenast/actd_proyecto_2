@@ -9,13 +9,18 @@ from numpy import mean, abs
 from itertools import product 
 from time import time
 import matplotlib.pyplot as plt
+from os import path, getcwd
 
 
 ##################################
 # Sección 2: Lectura de Datos
 ##################################
 
-ruta_datos = 'limpieza_y_alistamiento/datos_limpios.csv'
+ruta_carpeta_proy = path.dirname(getcwd())
+directorio_padre = ruta_carpeta_proy + '/actd_proyecto_2'
+
+
+ruta_datos = directorio_padre+'/limpieza_y_alistamiento/datos_limpios.csv'
 datos = read_csv(ruta_datos)
 
 ##################################

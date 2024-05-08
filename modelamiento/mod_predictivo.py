@@ -8,13 +8,17 @@ from sklearn.model_selection import train_test_split
 from itertools import product 
 from time import time
 import matplotlib.pyplot as plt
+from os import path, getcwd
 
 
 ##################################
 # Sección 2: Lectura de Datos
 ##################################
 # En esta sección se lee la información necesaria para el modelo
-ruta_datos = 'limpieza_y_alistamiento/datos_limpios.csv'
+ruta_carpeta_proy = path.dirname(getcwd())
+directorio_padre = ruta_carpeta_proy + '/actd_proyecto_2'
+
+ruta_datos = directorio_padre+'/limpieza_y_alistamiento/datos_limpios.csv'
 datos = read_csv(ruta_datos)
 col_innecesarias = ['SEX', 'EDUCATION', 'MARRIAGE']
 col_necesarias = [col for col in datos.columns if col not in col_innecesarias]
