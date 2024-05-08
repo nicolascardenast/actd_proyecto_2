@@ -135,7 +135,6 @@ plt.show()
 ##################################
 # En esta sección se realizan las predicciones
 loss, acc, _, mejor_modelo = cambiar_hiper(200, 200, 'tanh', 'sigmoid', 'rmsprop', datos_modelo)
-# Use the trained model to predict probabilities of default
 probabilities = mejor_modelo.predict(x)
 default_probability = probabilities.mean()
 print("Probabilidad de default en clientes de tarjetas de crédito:", default_probability)
