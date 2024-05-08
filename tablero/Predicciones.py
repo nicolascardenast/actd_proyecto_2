@@ -7,7 +7,6 @@ import pandas as pd
 import psycopg2
 from dotenv import load_dotenv 
 import os
-
 import dash_bootstrap_components as dbc
 import os
 import re

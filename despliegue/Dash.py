@@ -1,41 +1,30 @@
 # Importar librerías necesarias
-import dash
+from dash import Dash
 import pandas as pd
-import re
-import os
-from os import path, getcwd
-import random
+from os import path, getcwd, system, listdir
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-import dash_bootstrap_components as dbc
-import pandas as pd
 import plotly.graph_objects as go
 import plotly.graph_objs as go
-import sys
 import json
-import socket
-import requests
+from ..modelamiento.mod_explicativo import *
+from ..modelamiento.mod_predictivo import *
+import plotly.graph_objects as go
 
 
 try:
     import psycopg2
 except:
-    os.system("pip3 install psycopg2")
+    system("pip3 install psycopg2")
     import psycopg2
 
 ruta_carpeta_proy = path.dirname(getcwd())
 directorio_padre = ruta_carpeta_proy + '/actd_proyecto_2'
 
 
-os.listdir()
-import sys
-#CAMBIAR RUTA
-sys.path.append(directorio_padre + '/modelamiento')
-
-from mod_explicativo import *
-from mod_predictivo import *
+listdir()
 
 
 #Cargar base de datos
@@ -58,8 +47,6 @@ def read_dict_from_json(file_path):
 # Example usage:
 imported_dict = read_dict_from_json(directorio_padre + '/tablero/feature_importance.json')
 imported_dict
-
-import plotly.graph_objects as go
 
 def plot_feature_importance(importances, highlight=['EDUCATION', 'AGE']):
     # Convert the dictionary to a list of tuples and sort it
@@ -96,8 +83,6 @@ def plot_feature_importance(importances, highlight=['EDUCATION', 'AGE']):
 # Plotting the feature importance
 feature_importance_plot = plot_feature_importance(imported_dict)
 
-import pandas as pd
-
 def importance_variables(imported_dict):
     # Extraer los datos de 'AGE' y 'EDUCATION' del diccionario
     age_data = imported_dict.get('AGE', [])
@@ -130,13 +115,9 @@ variables = importance_variables(imported_dict)
 
 #Definicion del Layout
 
-import dash
-import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 sidebar = html.Div(
     [
@@ -236,9 +217,6 @@ def render_page_content(pathname):
     else:
         return "404 Page Not Found"
 
-# Callbacks
-
-import plotly.graph_objects as go  # Ensure this import is at the beginning of your file
 
 # Callbacks para actualizar los componentes del dashboard
 @app.callback(
