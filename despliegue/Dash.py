@@ -4,13 +4,13 @@ import pandas as pd
 from os import path, getcwd, system, listdir
 import dash_core_components as dcc
 import dash_html_components as html
+from mod_explicativo import *
+from mod_predictivo import *
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import plotly.graph_objs as go
 import json
-from ..modelamiento.mod_explicativo import *
-from ..modelamiento.mod_predictivo import *
 import plotly.graph_objects as go
 
 
